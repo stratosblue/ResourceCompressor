@@ -1,0 +1,39 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+
+  <!--引入IDE属性定义-->
+  <ItemGroup>
+    <PropertyPageSchema Include="$(MSBuildThisFileDirectory)ResourceCompressor.xml">
+      <Context>File;BrowseObject</Context>
+    </PropertyPageSchema>
+  </ItemGroup>
+
+  <!--引入压缩任务-->
+  <UsingTask TaskName="ResourceCompressionTask" AssemblyFile="$(MSBuildThisFileDirectory)netstandard2.0/ResourceCompressor.MSBuild.dll" />
+
+  <!--压缩项名称-->
+  <ItemGroup>
+    <AvailableItemName Include="CompressedEmbeddedResource" />
+  </ItemGroup>
+
+  <!--执行压缩-->
+  <Target Name="ResourceCompressorCompressingFiles"
+          Condition="'@(CompressedEmbeddedResource)' != ''"
+          BeforeTargets="CheckForDuplicateItems">
+
+    <!--压缩文件-->
+    <ResourceCompressionTask SourceFiles="@(CompressedEmbeddedResource)"
+                             WorkType="CompressedEmbeddedResource"
+                             IntermediateOutputFullPath="$(MSBuildProjectDirectory)/$(BaseIntermediateOutputPath)">
+      <Output ItemName="CompressedEmbeddedResourceOutputs" TaskParameter="OutputFiles" />
+    </ResourceCompressionTask>
+
+    <!--将压缩文件嵌入-->
+    <ItemGroup>
+      <EmbeddedResource Include="@(CompressedEmbeddedResourceOutputs)" Link="%(_RC_EmbeddedPath)" />
+    </ItemGroup>
+  </Target>
+</Project>

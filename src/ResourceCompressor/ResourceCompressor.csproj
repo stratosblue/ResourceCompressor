@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+
+    <PackageId>$(AssemblyName)</PackageId>
+    <AssemblyName>$(AssemblyName).MSBuild</AssemblyName>
+
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <BuildOutputTargetFolder>build\</BuildOutputTargetFolder>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+    <!--<GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+  </PropertyGroup>
+
+  <!--Package-->
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>基于 `MSBuild Task` 的构建时资源压缩器，用于在构建时将文件压缩后作为 `嵌入的资源` 编译到最终输出文件中。A build time resource compressor based on the `MSBuild Task`, used to compress files and compile them as `EmbeddedResource` into the final output file during build time.</Description>
+
+    <Version>1.0.0</Version>
+
+    <Authors>stratos</Authors>
+
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/stratosblue/ResourceCompressor</PackageProjectUrl>
+
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>$(PackageProjectUrl)</RepositoryUrl>
+
+    <PackageTags>resource compress compression resource-compress resource-compression compressed-embedded-resource embedded-resource embedded-resource-compress</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Link="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="build/*.*" Pack="true" PackagePath="build/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

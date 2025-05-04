@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/solution items/">
+    <File Path=".editorconfig" />
+    <File Path="CodeMaid.config" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+    <File Path="LICENSE.txt" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/ResourceCompressor/ResourceCompressor.csproj" />
+  </Folder>
+  <Folder Name="/test/" Id="02ea681e-c7d8-13c7-8484-4ac65e1b71e8">
+    <Project Path="test/ResourceCompressor.Test/ResourceCompressor.Test.csproj" Id="824b366e-14f1-4064-904c-efb3b418da50" />
+  </Folder>
+</Solution>

@@ -1,0 +1,48 @@
+﻿<ProjectSchemaDefinitions xmlns="http://schemas.microsoft.com/build/2009/properties">
+  <Rule Name="ResourceCompressor"
+        DisplayName="File Properties"
+        PageTemplate="generic"
+        Description="File Properties"
+        OverrideMode="Extend">
+    <Rule.DataSource>
+      <DataSource Persistence="ProjectFile" Label="Configuration" ItemType="CompressedEmbeddedResource"
+                  HasConfigurationCondition="false" SourceOfDefaultValue="AfterContext" />
+    </Rule.DataSource>
+
+    <Rule.Categories>
+      <Category Name="ResourceCompressor" DisplayName="ResourceCompressor" />
+    </Rule.Categories>
+
+    <EnumProperty Name="CompressionAlgorithm" DisplayName="Compression Algorithm"
+                  Category="ResourceCompressor" Default="GZip"
+                  Description="set file compression algorithm">
+      <EnumValue Name="GZip" DisplayName="GZip" IsDefault="true" />
+      <EnumProperty.DataSource>
+        <DataSource ItemType="CompressedEmbeddedResource" SourceOfDefaultValue="AfterContext"
+                    PersistenceStyle="Attribute" HasConfigurationCondition="false" />
+      </EnumProperty.DataSource>
+    </EnumProperty>
+
+    <EnumProperty Name="GenerateCompressedFile" DisplayName="Generate Compressed File"
+                  Category="ResourceCompressor" Default="Always"
+                  Description="set when to generate new compressed file">
+      <EnumValue Name="Always" DisplayName="Always" IsDefault="true" />
+      <EnumValue Name="PreserveNewest" DisplayName="PreserveNewest" />
+      <EnumProperty.DataSource>
+        <DataSource ItemType="CompressedEmbeddedResource" SourceOfDefaultValue="AfterContext"
+                    PersistenceStyle="Attribute" HasConfigurationCondition="false" />
+      </EnumProperty.DataSource>
+    </EnumProperty>
+
+    <EnumProperty Name="GeneratedFileSuffix" DisplayName="Generated File Suffix"
+                  Category="ResourceCompressor" Default="AlgorithmName"
+                  Description="set the generated file's additional suffix">
+      <EnumValue Name="AlgorithmName" DisplayName="AlgorithmName" IsDefault="true" />
+      <EnumValue Name="None" DisplayName="None" />
+      <EnumProperty.DataSource>
+        <DataSource ItemType="CompressedEmbeddedResource" SourceOfDefaultValue="AfterContext"
+                    PersistenceStyle="Attribute" HasConfigurationCondition="false" />
+      </EnumProperty.DataSource>
+    </EnumProperty>
+  </Rule>
+</ProjectSchemaDefinitions>
