@@ -14,7 +14,7 @@ public class ResourceCompressionTask : Microsoft.Build.Utilities.Task
     #region Public 属性
 
     [Required]
-    public string IntermediateOutputFullPath { get; set; }
+    public string IntermediateOutputPath { get; set; }
 
     [Output]
     public ITaskItem[] OutputFiles { get; set; }
@@ -45,7 +45,7 @@ public class ResourceCompressionTask : Microsoft.Build.Utilities.Task
         switch (workType)
         {
             case CompressionWorkType.CompressedEmbeddedResource:
-                OutputFiles = CompressionCompressedEmbeddedResource(SourceFiles, IntermediateOutputFullPath);
+                OutputFiles = CompressionCompressedEmbeddedResource(SourceFiles, IntermediateOutputPath);
                 break;
 
             default:
@@ -63,12 +63,12 @@ public class ResourceCompressionTask : Microsoft.Build.Utilities.Task
     /// 压缩 压缩嵌入资源
     /// </summary>
     /// <param name="sourceFiles"></param>
-    /// <param name="intermediateOutputFullPath"></param>
+    /// <param name="intermediateOutputPath"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    private static ITaskItem[] CompressionCompressedEmbeddedResource(ITaskItem[] sourceFiles, string intermediateOutputFullPath)
+    private static ITaskItem[] CompressionCompressedEmbeddedResource(ITaskItem[] sourceFiles, string intermediateOutputPath)
     {
-        var outputDirectory = Path.Combine(intermediateOutputFullPath, "ResourceCompressor", nameof(CompressionWorkType.CompressedEmbeddedResource));
+        var outputDirectory = Path.Combine(intermediateOutputPath, "ResourceCompressor", nameof(CompressionWorkType.CompressedEmbeddedResource));
         DirectoryUtil.EnsureDirectory(outputDirectory);
 
         var outputFiles = new ITaskItem[sourceFiles.Length];

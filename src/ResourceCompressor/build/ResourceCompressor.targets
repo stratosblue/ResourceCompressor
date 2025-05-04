@@ -27,7 +27,7 @@
     <!--压缩文件-->
     <ResourceCompressionTask SourceFiles="@(CompressedEmbeddedResource)"
                              WorkType="CompressedEmbeddedResource"
-                             IntermediateOutputFullPath="$(MSBuildProjectDirectory)/$(BaseIntermediateOutputPath)">
+                             IntermediateOutputPath="$(IntermediateOutputPath)">
       <Output ItemName="CompressedEmbeddedResourceOutputs" TaskParameter="OutputFiles" />
     </ResourceCompressionTask>
 
