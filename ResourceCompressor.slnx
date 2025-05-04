@@ -12,5 +12,7 @@
   </Folder>
   <Folder Name="/test/" Id="02ea681e-c7d8-13c7-8484-4ac65e1b71e8">
     <Project Path="test/ResourceCompressor.Test/ResourceCompressor.Test.csproj" Id="824b366e-14f1-4064-904c-efb3b418da50" />
+    <Project Path="test/ResourceCompressor.TestLibrary.MultiTargeting/ResourceCompressor.TestLibrary.MultiTargeting.csproj" Id="c11e8332-9379-4068-810f-bcc411c2e142" />
+    <Project Path="test/ResourceCompressor.TestLibrary/ResourceCompressor.TestLibrary.csproj" Id="ae870285-329e-483e-9199-72cd60faa912" />
   </Folder>
 </Solution>

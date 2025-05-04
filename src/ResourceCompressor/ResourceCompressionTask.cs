@@ -99,7 +99,7 @@ public class ResourceCompressionTask : Microsoft.Build.Utilities.Task
             var outputFile = outputFiles[i] = new TaskItem(outputFilePath);
             sourceFile.CopyMetadataTo(outputFile);
             //用于嵌入资源名称
-            outputFile.SetMetadata("_RC_EmbeddedPath", Path.Combine(relativeDir, fileName));
+            outputFile.SetMetadata("ResourceCompressorEmbeddedLinkPath", Path.Combine(relativeDir, fileName));
 
             //压缩文件
             var compressor = GetCompressor(compressionAlgorithm);

@@ -1,16 +1,20 @@
 <Project Sdk="MSTest.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 
     <TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+
+    <DefineConstants Condition="'$(EmbeddedResourceTesting)' == 'true'">$(DefineConstants);EMBEDDED_RESOURCE_TESTING</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\ResourceCompressor\ResourceCompressor.csproj" />
+    <ProjectReference Include="..\ResourceCompressor.TestLibrary.MultiTargeting\ResourceCompressor.TestLibrary.MultiTargeting.csproj" />
+    <ProjectReference Include="..\ResourceCompressor.TestLibrary\ResourceCompressor.TestLibrary.csproj" />
   </ItemGroup>
 
 </Project>

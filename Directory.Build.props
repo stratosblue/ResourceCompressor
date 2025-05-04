@@ -5,5 +5,7 @@
 
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
+
+    <EmbeddedResourceTesting>true</EmbeddedResourceTesting>
   </PropertyGroup>
 </Project>

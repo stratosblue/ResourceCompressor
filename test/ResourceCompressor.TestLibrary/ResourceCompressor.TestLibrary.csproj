@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(EmbeddedResourceTesting)' == 'true'">
+    <ProjectReference Include="..\..\src\ResourceCompressor\ResourceCompressor.csproj">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </ProjectReference>
+  </ItemGroup>
+
+  <UsingTask Condition="'$(EmbeddedResourceTesting)' == 'true'" TaskName="ResourceCompressionTask" AssemblyFile="../../src/ResourceCompressor/bin/$(Configuration)/netstandard2.0/ResourceCompressor.MSBuild.dll" />
+
+  <Import Condition="'$(EmbeddedResourceTesting)' == 'true'" Project="../../src/ResourceCompressor/build/CompressingFiles.targets" />
+
+  <ItemGroup Condition="'$(EmbeddedResourceTesting)' == 'true'">
+    <CompressedEmbeddedResource Include="TestFiles\compressed.test.json" />
+    <CompressedEmbeddedResource Include="TestFiles\compressed.nosuffix.test.json" GeneratedFileSuffix="None" />
+    <CompressedEmbeddedResource Include="TestFiles\Dir\**\*" />
+    <CompressedEmbeddedResource Include="TestFiles\LinkedDir\**\*" Link="CustomLinkDir/%(FileName)%(Extension)" />
+    <EmbeddedResource Include="TestFiles\test.json" />
+    <EmbeddedResource Include="TestFiles\link.test.json" Link="TestFiles\CustomLink\test.json" />
+  </ItemGroup>
+</Project>
