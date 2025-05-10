@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/sample/" Id="9068387a-46df-4b24-b1d4-20d0313b00f4">
+    <Project Path="sample/EmbeddedResourceWebApp/EmbeddedResourceWebApp.csproj" Id="46a76e06-e999-4d67-8ccd-15ea44a58702" />
+  </Folder>
   <Folder Name="/solution items/">
     <File Path=".editorconfig" />
     <File Path="CodeMaid.config" />
