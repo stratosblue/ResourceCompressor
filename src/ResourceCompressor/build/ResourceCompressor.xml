@@ -34,15 +34,13 @@
       </EnumProperty.DataSource>
     </EnumProperty>
 
-    <EnumProperty Name="GeneratedFileSuffix" DisplayName="Generated File Suffix"
-                  Category="ResourceCompressor" Default="AlgorithmName"
-                  Description="set the generated file's additional suffix">
-      <EnumValue Name="AlgorithmName" DisplayName="AlgorithmName" IsDefault="true" />
-      <EnumValue Name="None" DisplayName="None" />
-      <EnumProperty.DataSource>
+    <StringProperty Name="GeneratedFileFormat" DisplayName="Generated File Format"
+                  Category="ResourceCompressor" Default=""
+                  Description="set the generated file's additional format. '{0}' is the origin file name. eg: '{0}.gz' will generate 'file.txt' as 'file.txt.gz'">
+      <StringProperty.DataSource>
         <DataSource ItemType="CompressedEmbeddedResource" SourceOfDefaultValue="AfterContext"
                     PersistenceStyle="Attribute" HasConfigurationCondition="false" />
-      </EnumProperty.DataSource>
-    </EnumProperty>
+      </StringProperty.DataSource>
+    </StringProperty>
   </Rule>
 </ProjectSchemaDefinitions>

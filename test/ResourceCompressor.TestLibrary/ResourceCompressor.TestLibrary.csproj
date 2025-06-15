@@ -16,10 +16,10 @@
   <Import Condition="'$(EmbeddedResourceTesting)' == 'true'" Project="../../src/ResourceCompressor/build/CompressingFiles.targets" />
 
   <ItemGroup Condition="'$(EmbeddedResourceTesting)' == 'true'">
-    <CompressedEmbeddedResource Include="TestFiles\compressed.test.json" />
-    <CompressedEmbeddedResource Include="TestFiles\compressed.nosuffix.test.json" GeneratedFileSuffix="None" />
-    <CompressedEmbeddedResource Include="TestFiles\Dir\**\*" />
-    <CompressedEmbeddedResource Include="TestFiles\LinkedDir\**\*" Link="CustomLinkDir/%(FileName)%(Extension)" />
+    <CompressedEmbeddedResource Include="TestFiles\compressed.test.json" GeneratedFileFormat="{0}.gzip" />
+    <CompressedEmbeddedResource Include="TestFiles\compressed.nosuffix.test.json" />
+    <CompressedEmbeddedResource Include="TestFiles\Dir\**\*" GeneratedFileFormat="{0}.gzip" />
+    <CompressedEmbeddedResource Include="TestFiles\LinkedDir\**\*" Link="CustomLinkDir/%(FileName)%(Extension)" GeneratedFileFormat="{0}.gzip" />
     <EmbeddedResource Include="TestFiles\test.json" />
     <EmbeddedResource Include="TestFiles\link.test.json" Link="TestFiles\CustomLink\test.json" />
   </ItemGroup>

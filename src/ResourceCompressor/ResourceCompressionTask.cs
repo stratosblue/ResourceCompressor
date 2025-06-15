@@ -83,14 +83,15 @@ public class ResourceCompressionTask : Microsoft.Build.Utilities.Task
 
             var compressionAlgorithm = sourceFile.GetTypedMetadata("CompressionAlgorithm", CompressionAlgorithm.GZip);
             var generateCompressedFileOptions = sourceFile.GetTypedMetadata("GenerateCompressedFile", GenerateCompressedFileOptions.Always);
-            var generatedFileSuffixOptions = sourceFile.GetTypedMetadata("GeneratedFileSuffix", GeneratedFileSuffixOptions.AlgorithmName);
+            var generatedFileFormatOptions = sourceFile.GetMetadata("GeneratedFileFormat") ?? string.Empty;
+
+            if (string.IsNullOrWhiteSpace(generatedFileFormatOptions))
+            {
+                generatedFileFormatOptions = "{0}";
+            }
 
             //确认生成文件名
-            var fileName = generatedFileSuffixOptions switch
-            {
-                GeneratedFileSuffixOptions.AlgorithmName => $"{Path.GetFileName(sourceFilePath)}.{compressionAlgorithm.ToString("G").ToLowerInvariant()}",
-                _ => Path.GetFileName(sourceFilePath),
-            };
+            var fileName = string.Format(generatedFileFormatOptions, Path.GetFileName(sourceFilePath));
 
             //确认输出目录
             var outputFilePath = Path.Combine(outputDirectory, relativeDir, fileName);

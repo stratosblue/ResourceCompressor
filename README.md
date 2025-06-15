@@ -62,13 +62,12 @@ A build time resource compressor based on the `MSBuild Task`, used to compress f
 
 -------
 
-#### 2.1.3 生成文件后缀: `GeneratedFileSuffix`
+#### 2.1.3 生成文件格式: `GeneratedFileFormat`
 ```xml
 <ItemGroup>
-  <CompressedEmbeddedResource Include="embeddedFile.ext" GeneratedFileSuffix="None" />
+  <CompressedEmbeddedResource Include="embeddedFile.ext" GeneratedFileFormat="{0}.gz" />
 </ItemGroup>
 ```
-- 默认值: `AlgorithmName`
-- 支持的值
-  - `None`: 不添加后缀
-  - `AlgorithmName`: 使用算法名称作为后缀
+- 内部使用 `string.Format` 进行格式化，参数 `0` 为原始文件名
+- 默认值: `{0}`
+- 空白值等价于 `{0}`
