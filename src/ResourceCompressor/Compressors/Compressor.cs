@@ -49,8 +49,8 @@ public abstract class Compressor : ICompressor
         if (generateCompressedFileOptions == GenerateCompressedFileOptions.PreserveNewest
             && File.Exists(outputPath))
         {
-            //生成文件的时间与原文件相同则跳过
-            if (sourceLastWriteTime == File.GetLastWriteTimeUtc(outputPath))
+            //生成文件的时间大于原文件时间则跳过
+            if (sourceLastWriteTime < File.GetLastWriteTimeUtc(outputPath))
             {
                 return false;
             }
@@ -66,9 +66,6 @@ public abstract class Compressor : ICompressor
 
             DirectCompress(sourceStream, outputStream);
         }
-
-        //调整输出文件的最后修改时间
-        File.SetLastWriteTimeUtc(outputPath, sourceLastWriteTime);
 
         return true;
     }
