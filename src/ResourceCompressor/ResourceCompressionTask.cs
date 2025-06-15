@@ -100,27 +100,22 @@ public class ResourceCompressionTask : Microsoft.Build.Utilities.Task
             var outputFile = outputFiles[i] = new TaskItem(outputFilePath);
             sourceFile.CopyMetadataTo(outputFile);
             //用于嵌入资源名称
-            outputFile.SetMetadata("ResourceCompressorEmbeddedLinkPath", Path.Combine(relativeDir, fileName));
+            var link = sourceFile.GetMetadata("Link");  //获取原始的Link
+            if (string.IsNullOrWhiteSpace(link))
+            {
+                //避免 ./ 等导致最终嵌入路径有过多的 .
+                relativeDir = Path.GetFullPath(relativeDir);
+                relativeDir = relativeDir.Substring(Environment.CurrentDirectory.Length).TrimStart(['\\', '/']);
+                link = Path.Combine(relativeDir, fileName);
+            }
+            outputFile.SetMetadata("ResourceCompressorEmbeddedLinkPath", link);
 
             //压缩文件
             var compressor = GetCompressor(compressionAlgorithm);
             compressor.Compress(sourceFilePath, outputFilePath, generateCompressedFileOptions);
         }
 
-        CleanFiles(outputFiles.Select(m => m.ItemSpec).ToList(), outputDirectory);
-
         return outputFiles;
-
-        static void CleanFiles(List<string> validFilePaths, string targetDirectory)
-        {
-            foreach (var filePath in Directory.EnumerateFiles(targetDirectory, "*", SearchOption.AllDirectories))
-            {
-                if (!validFilePaths.Contains(filePath))
-                {
-                    File.Delete(filePath);
-                }
-            }
-        }
     }
 
     private static ICompressor GetCompressor(CompressionAlgorithm compressionAlgorithm)
